@@ -141,6 +141,7 @@ end
   end
 
   #=======================================================================================
+
   # Тесты для self.distance_between_point_and_plane(point, plane)
 
   def test_invalid_point_size
@@ -184,6 +185,54 @@ end
     assert_in_delta expected, ::Dots.distance_between_point_and_plane(point, plane), 1e-6
   end
   
+
+  #=======================================================================================
+
+  # Тесты для self.planes_ortogonal? 
+
+  def test_invalid_planes_size
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([1, 2, 3], [0, 1, 0, 5])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([], [0, 0, 5])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?( [0, 0, 5], [0, 0, 5])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([], [])
+    end
+  end
+
+  def test_is_not_plane 
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([1, 2, 3,1], [0, 0, 0, 5])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([0,0,0, 1], [0, 0, 0, 5])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_ortogonal?([0,0,0, 1], [2, 1, 0, 5])
+    end
+  end
+
+  def test_is_not_ortogonal_planes
+    assert_equal false, ::Dots.planes_ortogonal?([1,0,0, 1], [2, 1, 0, 5])
+    assert_equal false, ::Dots.planes_ortogonal?([1,0,0, 1], [2, 0, 0, 5])
+    assert_equal false, ::Dots.planes_ortogonal?([1,0,0, 1], [-1, 0, 0, 5])
+  end
+
+  def test_is_ortogonal_planes
+    assert_equal true, ::Dots.planes_ortogonal?([1,0,0, 1], [0, 1, 0, 5])
+    assert_equal true, ::Dots.planes_ortogonal?([-1,2,0, 1], [2, 1, 0, 5])
+    assert_equal true, ::Dots.planes_ortogonal?([-1,2,2, 1], [2, -1, 2, 0])
+  end
 
 
 end

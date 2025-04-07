@@ -7,13 +7,13 @@ module Dots
   
   #расстояние между точками в пространстве
   # point = [x,y,z] - точка, задается трехмерным массивом
-def self.distance_between_two_points(point_a, point_b)
-  Math.sqrt(
-    (point_b[0] - point_a[0])**2 +
-    (point_b[1] - point_a[1])**2 +
-    (point_b[2] - point_a[2])**2
-  )
-end
+  def self.distance_between_two_points(point_a, point_b)
+    Math.sqrt(
+      (point_b[0] - point_a[0])**2 +
+      (point_b[1] - point_a[1])**2 +
+      (point_b[2] - point_a[2])**2
+    )
+  end
 
   
   #проверка на ортогональность прямых
@@ -68,7 +68,7 @@ end
   # A1 * x + B1 * y + C1 * z+ D1 = 0 - уравнение плоскости
   # plane2 = [A2,B2,C2,D2] - плоскость, задается четырехмерным массивом, где
   # A2 * x + B2 * y + C2 * z+ D2 = 0 - уравнение плоскости
-  def self.planes_ortogonal? ( plane1,  plane2)
+  def self.planes_ortogonal?( plane1,  plane2)
     raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane1.size == 4 && plane2.size == 4 
     raise ArgumentError, "Хотя бы одно из чисел A, B, C должно быть ненулевым для каждой плоскости" if norma(plane1[0..2]).zero? || norma(plane2[0..2]).zero?
     orthogonal?(plane1[0..2], plane2[0..2])
