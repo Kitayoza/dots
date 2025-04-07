@@ -97,6 +97,50 @@ end
 
 
   #=======================================================================================
+
+  # Тесты для self.norma(vector)
+
+  def test_invalid_vector
+    assert_raises(ArgumentError) do
+      ::Dots.norma([])
+    end
+    assert_raises(ArgumentError) do
+      ::Dots.norma([1])
+    end
+    assert_raises(ArgumentError) do
+      ::Dots.norma([1,1])
+    end
+    assert_raises(ArgumentError) do
+      ::Dots.norma([1,1,2,3])
+    end
+  end
+
+  def test_norma_for_integer
+    vector = [0,0,0]
+    assert_in_delta 0.0, ::Dots.norma(vector), 0.001 
+
+    vector1 = [1,0,0]
+    assert_in_delta 1.0, ::Dots.norma(vector1), 0.001 
+
+    vector2 = [3,4,0]
+    assert_in_delta 5.0, ::Dots.norma(vector2), 0.001 
+
+    vector2 = [1,2,2]
+    assert_in_delta 3.0, ::Dots.norma(vector2), 0.001 
+  end
+
+  def test_norma_for_float
+    vector = [0.1,0.2,0.2]
+    assert_in_delta 0.3, ::Dots.norma(vector), 0.001 
+
+    vector1 = [0.1,0,0]
+    assert_in_delta 0.1, ::Dots.norma(vector1), 0.001 
+
+    vector2 = [0.3,0.4,0]
+    assert_in_delta 0.5, ::Dots.norma(vector2), 0.001 
+  end
+
+  #=======================================================================================
   # Тесты для self.distance_between_point_and_plane(point, plane)
 
   def test_invalid_point_size
