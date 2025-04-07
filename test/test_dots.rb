@@ -94,4 +94,52 @@ end
     assert_equal true, ::Dots.lines_orthogonal?([-1,-1,-1], [-1,-1,0], [-1,-1,-1], [-2,-1,-1])
     assert_equal false, ::Dots.lines_orthogonal?([-1,0,0], [-2,4,0], [0,-1,0], [0,-2,0])
   end
+
+
+  #=======================================================================================
+  # Тесты для self.distance_between_point_and_plane(point, plane)
+
+  def test_invalid_point_size
+    # Точка с недостающим количеством координат
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_plane([1, 2], [1, 2, 3, 4])
+    end
+  end
+
+  def test_invalid_plane_size
+    # Плоскость с недостающим количеством координат
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_plane([1, 2, 3], [1, 2, 3])
+    end
+  end
+
+  def test_zero_normal_vector
+    # Не уравнение плоскости
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_plane([1, 2, 3], [0, 0, 0, 5])
+    end
+  end
+
+  def test_normal_case_distance
+    # Плоскость  = 0 и точка на оси OX
+    point = [5, 0, 0]
+    plane = [1, 0, 0, 0] 
+    assert_equal 5.0, ::Dots.distance_between_point_and_plane(point, plane)
+  end
+
+  def test_point_in_plane
+    point = [1, -1, 0]
+    plane = [1, 1, 1, 0] # x + y + z = 0
+    assert_equal 0.0, ::Dots.distance_between_point_and_plane(point, plane)
+  end
+
+  def test_floating_distance_point_and_plane
+    plane = [2, 2, 1, -4] 
+    point = [0, 0, 0]
+    expected = 4.0 / 3.0 
+    assert_in_delta expected, ::Dots.distance_between_point_and_plane(point, plane), 1e-6
+  end
+  
+
+
 end
