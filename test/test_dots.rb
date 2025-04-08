@@ -337,4 +337,82 @@ end
     end
   end
 
+  #=======================================================================================
+  #=======================================================================================
+
+  # Тесты для self.planes_parallel?
+
+  def test_planes_parallel
+    assert_equal true, ::Dots.planes_parallel?([1, 2, 3, 4], [2, 4, 6, 8])
+  end
+
+  def test_planes_not_parallel
+    assert_equal false, ::Dots.planes_parallel?([1, 0, 0, 1], [0, 1, 0, 2])
+  end
+
+  def test_planes_parallel_invalid
+    assert_raises(ArgumentError) do
+      ::Dots.planes_parallel?([1, 2, 3], [1, 2, 3, 4])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.planes_parallel?([1, 2, 3, 4], [1, 2])
+    end
+  end
+  #=======================================================================================
+
+  # Тесты для self.distance_between_planes
+
+  def test_distance_between_parallel_planes
+    plane1 = [0, 0, 1, -5]  # z = 5
+    plane2 = [0, 0, 1, -10] # z = 10
+    assert_in_delta 5.0, ::Dots.distance_between_planes(plane1, plane2), 0.0001
+  end
+
+  def test_distance_between_same_plane
+    plane1 = [1, 0, 0, -3]
+    plane2 = [1, 0, 0, -3]
+    assert_in_delta 0.0, ::Dots.distance_between_planes(plane1, plane2), 0.0001
+  end
+
+  def test_distance_between_non_parallel_planes
+    plane1 = [1, 0, 0, -1]
+    plane2 = [0, 1, 0, -1]
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_planes(plane1, plane2)
+    end
+  end
+
+#=======================================================================================
+
+  # Тесты для self.lines_parallel?
+
+  def test_lines_parallel
+    line1 = [[0, 0, 0], [1, 1, 1]]
+    line2 = [[2, 2, 2], [3, 3, 3]]
+    assert_equal true, ::Dots.lines_parallel?(line1, line2)
+  end
+
+  def test_lines_not_parallel
+    line1 = [[0, 0, 0], [1, 0, 0]]
+    line2 = [[0, 0, 0], [0, 1, 0]]
+    assert_equal false, ::Dots.lines_parallel?(line1, line2)
+  end
+
+  def test_lines_parallel_invalid
+    assert_raises(ArgumentError) do
+      ::Dots.lines_parallel?([[0, 0, 0], [0, 0, 0]], [[1, 1, 1], [2, 2, 2]])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.lines_parallel?([[1, 2, 3]], [[4, 5, 6], [7, 8, 9]])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.lines_parallel?([[1, 2], [3, 4, 5]], [[4, 5, 6], [7, 8, 9]])
+    end
+  end
+end
+
+
 end
