@@ -133,7 +133,7 @@ module Dots
     norma(cross_product).zero?
   end
   
-  def planes_parallel?(plane1, plane2)
+  def self.planes_parallel?(plane1, plane2)
     raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane1.size == 4 && plane2.size == 4
   
     normal1 = plane1[0..2]
@@ -149,9 +149,8 @@ module Dots
     norma(cross).zero?
   end
 
-
   # расстояние между двумя параллельными плоскостями
-  def distance_between_planes(plane1, plane2)
+  def self.distance_between_planes(plane1, plane2)
     unless planes_parallel?(plane1, plane2)
       raise ArgumentError, "Плоскости не параллельны, расстояние не определено"
     end
@@ -160,8 +159,24 @@ module Dots
     diff_d = (plane2[3] - plane1[3]).abs
     diff_d.to_f / norma(normal)
   end
-
-
-
   
+  def self.lines_parallel?(line1_points, line2_points)
+      raise ArgumentError, "Каждая прямая должна задаваться двумя точками" unless 
+        line1_points.size == 2 && line2_points.size == 2 &&
+        line1_points.all? { |p| p.size == 3 } && line2_points.all? { |p| p.size == 3 }
+  
+      vec1 = direction_vector(*line1_points)
+      vec2 = direction_vector(*line2_points)
+  
+      raise ArgumentError, "Обе прямые должны быть заданы разными точками" if vec1.all?(&:zero?) || vec2.all?(&:zero?)
+  
+      cross_product = [
+        vec1[1] * vec2[2] - vec1[2] * vec2[1],
+        vec1[2] * vec2[0] - vec1[0] * vec2[2],
+        vec1[0] * vec2[1] - vec1[1] * vec2[0]
+      ]
+  
+      norma(cross_product).zero?
+    end
+
 end
