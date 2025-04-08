@@ -133,4 +133,35 @@ module Dots
     norma(cross_product).zero?
   end
   
+  def planes_parallel?(plane1, plane2)
+    raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane1.size == 4 && plane2.size == 4
+  
+    normal1 = plane1[0..2]
+    normal2 = plane2[0..2]
+  
+    # Плоскости параллельны, если их нормали коллинеарны (векторное произведение = 0)
+    cross = [
+      normal1[1]*normal2[2] - normal1[2]*normal2[1],
+      normal1[2]*normal2[0] - normal1[0]*normal2[2],
+      normal1[0]*normal2[1] - normal1[1]*normal2[0]
+    ]
+  
+    norma(cross).zero?
+  end
+
+
+  # расстояние между двумя параллельными плоскостями
+  def distance_between_planes(plane1, plane2)
+    unless planes_parallel?(plane1, plane2)
+      raise ArgumentError, "Плоскости не параллельны, расстояние не определено"
+    end
+  
+    normal = plane1[0..2]
+    diff_d = (plane2[3] - plane1[3]).abs
+    diff_d.to_f / norma(normal)
+  end
+
+
+
+  
 end
