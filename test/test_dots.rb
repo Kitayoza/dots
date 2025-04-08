@@ -268,5 +268,43 @@ end
     line_points = [[1, 1, 1], [2, 2, 2]]
     assert_equal 0.0, ::Dots.distance_between_point_and_line(point, line_points)
   end 
+  
+#=======================================================================================
 
+  # Тесты для self.line_and_plane_orthogonal?(line_points, plane)
+
+  def test_invalid
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2, 3]], [1, 0, 0, 0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [1, 0, 0, 0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2], [3, 4, 5]], [1, 0, 0, 0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5]], [1, 0, 0, 0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5, 6]], [1, 0, 0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [1, 2, 3]], [1, 0, 0, 0])
+    end
+  end
+
+  def test_is_not_orthogonal
+    assert_equal false, ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5, 7]], [1, -1, 1, -3])
+  end
+
+  def test_is_orthogonal
+    assert_equal true, ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [1, 2, 4]], [1, 1, 0, -3])
+  end
+  
 end
