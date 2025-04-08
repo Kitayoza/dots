@@ -112,4 +112,25 @@ module Dots
     orthogonal?(d_vec, [plane[0], plane[1], plane[2]])
   end
 
+    #Параллельность прямой и плоскости?
+  # line_points = [[x1, y1, z1], [x2, y2, z2]] - две точки, задающие прямую
+  # plane = [A,B,C,D] - плоскость, задается четырехмерным массивом, где
+  # A * x + B * y + C * z+ D = 0 - уравнение плоскости
+  def self.line_and_plane_parallel?(line_points, plane)
+    raise ArgumentError, "Прямая должна задаваться двумя точками" unless line_points.size == 2 && line_points.all? { |p| p.size == 3 }
+    raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane.size == 4 
+  
+    p_a, p_b = line_points
+    d_vec = direction_vector(p_a, p_b) 
+    raise ArgumentError, "Направляющий вектор должен быть ненулевым" if d_vec.all?{|p| p.zero?} #если p_a, p_b одинаковые точки
+
+    cross_product = [
+      d_vec[1] * plane[2] - d_vec[2] * plane[1],
+      d_vec[2] * plane[0] - d_vec[0] * plane[2],
+      d_vec[0] * plane[1] - d_vec[1] * plane[0]
+    ]
+
+    norma(cross_product).zero?
+  end
+  
 end

@@ -268,7 +268,7 @@ end
     line_points = [[1, 1, 1], [2, 2, 2]]
     assert_equal 0.0, ::Dots.distance_between_point_and_line(point, line_points)
   end 
-  
+
 #=======================================================================================
 
   # Тесты для self.line_and_plane_orthogonal?(line_points, plane)
@@ -307,4 +307,34 @@ end
     assert_equal true, ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [1, 2, 4]], [1, 1, 0, -3])
   end
   
+ #=======================================================================================
+
+  # Тесты для self.line_and_plane_parallel?(line_points, plane)
+
+  def test_parallel_lines_and_plane
+    assert_equal true, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1, -6])
+  end
+
+  def test_not_parallel_lines_and_plane
+    assert_equal false, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, -1, 1, -3])
+  end
+
+  def test_invalid
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, 1, 1, -6])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 2, 3]], [1, 1, 1, -6])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, -1, 1, -3])
+    end
+  end
+
 end
