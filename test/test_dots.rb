@@ -234,5 +234,39 @@ end
     assert_equal true, ::Dots.planes_ortogonal?([-1,2,2, 1], [2, -1, 2, 0])
   end
 
+#=======================================================================================
+#=======================================================================================
+
+  # Тесты для self.distance_between_point_and_line(point, line_points)
+
+  def test_invalid_point_size
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_line([1, 2], [[0, 0, 0], [1, 1, 1]])
+    end
+  end
+  
+  def test_invalid_line_size
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_line([1, 2, 3], [[0, 0, 0]])
+    end
+  end
+  
+  def test_zero_direction_vector
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_line([1, 2, 3], [[0, 0, 0], [0, 0, 0]])
+    end
+  end
+  
+  def test_normal_case_distance
+    point = [1, 1, 1]
+    line_points = [[0, 0, 0], [0, 0, 1]]
+    assert_equal Math.sqrt(2), ::Dots.distance_between_point_and_line(point, line_points)
+  end
+  
+  def test_point_on_line
+    point = [1, 1, 1]
+    line_points = [[1, 1, 1], [2, 2, 2]]
+    assert_equal 0.0, ::Dots.distance_between_point_and_line(point, line_points)
+  end 
 
 end

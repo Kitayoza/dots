@@ -74,6 +74,26 @@ module Dots
     orthogonal?(plane1[0..2], plane2[0..2])
   end
 
+  # Расстояние между точкой и прямой
+  # point = [x0, y0, z0] - точка, задается трехмерным массивом
+  # line_points = [[x1, y1, z1], [x2, y2, z2]] - две точки, задающие прямую
+  def self.distance_between_point_and_line(point, line_points)
+    raise ArgumentError, "Точка должна содержать 3 координаты" unless point.size == 3
+    raise ArgumentError, "Прямая должна задаваться двумя точками" unless line_points.size == 2 && line_points.all? {|p| p.size == 3}
 
+    p_a, p_b = line_points
+    d_vec = direction_vector(p_a, p_b)
+
+    raise ArgumentError, "Направляющий вектор должен быть ненулевым" if d_vec.all?{|p| p.zero?} #если p_a, p_b одинаковые точки
+
+    vec = direction_vector(p_a, point)
+
+    norma([
+      vec[1] * d_vec[2] - vec[2] * d_vec[1],
+      vec[2] * d_vec[0] - vec[0] * d_vec[2],
+      vec[0] * d_vec[1] - vec[1] * d_vec[0]
+    ])/norma(d_vec) 
+
+  end
 
 end
