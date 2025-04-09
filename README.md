@@ -1,39 +1,118 @@
 # Dots
 
-TODO: Delete this and the text below, and describe your gem
+Гем `Dots` предоставляет функции для вычисления некоторых функций с базовыми стереометрическими объектами (точка, прямая, плоскость):
+- расстояние между ними,
+- определение параллельности и ортогональности, 
+- вычисление нормы вектора.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dots`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+## Установка
+Добавить в Gemfile
+```
+bundle add dots --git=https://github.com/Kitayoza/dots.git
+```
+Или установить напрямую
+```
+gem install specific_install
+gem specific_install -l https://github.com/Kitayoza/dots.git
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+## Использование
 
-```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
+### Задание базовых объектов
+1. Точка задается трехмерным массивом
+    ```
+    point = [x0, y0, z0]
+    ```
+1. Прямая задается массивом двух точек
+    ```
+    line_points = [[x1, y1, z1], [x2, y2, z2]]
+    ```
+1. Плоскость задается массивом коэффициентов $ A,B,C,D $, где $ Ax + By + Cz + D = 0 $ - уравнение плоскости
+    ```
+    plane = [A, B, C, D]
+    ```
 
-## Usage
+### Функции
+1. Вычисление расстояния между
+    - точками
+    ```
+    point1 = [0, 0, 0]
+    point2 = [3, 4, 0]
+    p ::Dots.distance_between_two_points(point1, point2) 
+    # 5.0
+    ```
+    - точкой и прямой
+    ```
+    point = [1, 1, 1]
+    line_points = [[0, 0, 0], [0, 0, 1]]
+    p ::Dots.distance_between_point_and_line(point, line_points) 
+    # 1.4142..
+    ```
+    - точкой и плоскостью
+    ```
+    point = [5, 0, 0]
+    plane = [1, 0, 0, 0] 
+    p ::Dots.distance_between_point_and_plane(point, plane)  
+    # 5.0
+    ```
+    - ***прямой и плоскостью***
+    ```
+    point1 = [0, 0, 0]
+    point2 = [3, 4, 0]
+    p ::Dots.distance_between_two_points(point1, point2) 
+    # 5.0
+    ```
+    - плоскостями
+    ```
+    plane1 = [1, 0, 0, -3]
+    plane2 = [1, 0, 0, -3]
+    p ::Dots.distance_between_planes(plane1, plane2)
+    # 0.0
+    ```
+1. Определение параллельности между
+    - прямыми
+    ```
+    line1 = [[0, 0, 0], [1, 1, 1]]
+    line2 = [[2, 2, 2], [3, 3, 3]]
+    p ::Dots.lines_parallel?(line1, line2)
+    # true
+    ```
+    - прямой и плоскостью
+    ```
+    line = [[1, 2, 3], [4, 5, 6]]
+    plane = [1, 1, 1, -6]
+    p ::Dots.line_and_plane_parallel?(line, plane)
+    # true
+    ```
+    - плоскостями
+    ```
+    plane1 = [1, 0, 0, 4]
+    plane2 = [0, 1, 0, -3]
+    p ::Dots.planes_parallel?(plane1, plane2)
+    # false
+    ```
+1. Определение перпендикулярности между
+    - прямыми
+    ```
+    
+    ```
+    - прямой и плоскостью
+    ```
+    
+    ```
+    - плоскостями
+    ```
+    
+    ```
+1. Вычисление нормы вектора
+    ```
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    ```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dots.
+Сообщения об ошибках и пул-реквесты приветствуются на GitHub https://github.com/Kitayoza/dots.
 
-## License
+## Лицензия
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Гем доступен как открытое программное обеспечение на условиях [MIT License](https://opensource.org/licenses/MIT).
