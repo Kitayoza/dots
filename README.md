@@ -103,7 +103,8 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     ```
     - прямой и плоскостью
     ```
-    
+    p ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [1, 2, 4]], [1, 1, 0, -3])
+    # true
     ```
     - плоскостями
     ```
