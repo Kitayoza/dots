@@ -152,7 +152,7 @@ module Dots
   # расстояние между двумя параллельными плоскостями
   def self.distance_between_planes(plane1, plane2)
     unless planes_parallel?(plane1, plane2)
-      raise ArgumentError, "Плоскости не параллельны, расстояние не определено"
+      return 0
     end
   
     normal = plane1[0..2]
