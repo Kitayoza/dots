@@ -378,9 +378,7 @@ end
   def test_distance_between_non_parallel_planes
     plane1 = [1, 0, 0, -1]
     plane2 = [0, 1, 0, -1]
-    assert_raises(ArgumentError) do
-      ::Dots.distance_between_planes(plane1, plane2)
-    end
+    assert_equal 0, ::Dots.distance_between_planes(plane1, plane2)
   end
 
 #=======================================================================================
