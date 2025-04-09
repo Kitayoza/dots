@@ -411,5 +411,81 @@ end
     end
   end
 
+#=======================================================================================
+  
+# Тесты для self.distance_between_line_and_plane(line_points, plane)
+  # расстояние между прямой и плоскости
+
+  def test_invalid_line
+    
+    assert_raises(ArgumentError) do
+      line = [[],[0,0,0]]
+      plane = [0,1,0,0]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+    assert_raises(ArgumentError) do
+      line = [[0],[0,0,0]]
+      plane = [0,1,0,0]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+    assert_raises(ArgumentError) do
+      line = [[0,0,0],[0,0,0]]
+      plane = [0,1,0,0]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+  end
+
+  def test_invalid_plane
+    
+    assert_raises(ArgumentError) do
+      line = [[1,0,0],[0,0,0]]
+      plane = [0,0,0,0]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+    assert_raises(ArgumentError) do
+      line = [[1,0,0],[0,0,0]]
+      plane = []
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+    assert_raises(ArgumentError) do
+      line = [[1,0,0],[0,0,0]]
+      plane = [0,0]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+    assert_raises(ArgumentError) do
+      line = [[1,0,0],[0,0,0]]
+      plane = [0,0,0,5]
+      ::Dots.distance_between_line_and_plane(line, plane)
+    end
+
+  end
+
+  def test_line_in_plane
+    line = [[2,0,0],[0,0,0]]
+    plane = [1,0,0,0]
+    assert_equal 0, ::Dots.distance_between_line_and_plane(line, plane)
+  end  
+
+  def test_line_in_plane
+    line = [[2,0,0],[0,0,0]]
+    plane = [1,0,0,0]
+    assert_equal 0, ::Dots.distance_between_line_and_plane(line, plane)
+  end
+
+  def test_distance_between_line_and_plane
+    line = [[0,2,0],[0,0,0]]
+    plane = [1, 0, 0, -3]
+    assert_in_delta 3.0, ::Dots.distance_between_line_and_plane(line, plane), 0.0001
+
+    line1 = [[0,0,3],[0,0,0]]
+    plane1 = [1, 1, 0, -3]
+    assert_in_delta 3/ Math.sqrt(2), ::Dots.distance_between_line_and_plane(line1, plane1), 0.0001
+  end
 
 end

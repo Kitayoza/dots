@@ -63,6 +63,24 @@ module Dots
     (plane[0] * point[0] + plane[1] * point[1] + plane[2]* point[2] + plane[3]).abs / norma_plane 
   end
   
+  # расстояние между прямой и плоскости
+  # line_points = [[x1, y1, z1], [x2, y2, z2]] - две точки, задающие прямую
+  # plane = [A,B,C,D] - плоскость, задается массивом коэффициентов, где
+  # A * x + B * y + C * z+ D = 0 - уравнение плоскости
+  def self.distance_between_line_and_plane(line_points, plane)
+    raise ArgumentError, "Прямая должна задаваться двумя точками" unless line_points.size == 2 && line_points.all? {|p| p.size == 3} 
+    raise ArgumentError, "Точки должны быть различны" if direction_vector(line_points[0], line_points[1]).all?(&:zero?)
+    raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane.size == 4 
+    raise ArgumentError, "Хотя бы одно из чисел A, B, C должно быть ненулевым" if norma(plane[0..2]).zero? 
+    distance1 = distance_between_point_and_plane(line_points[0], plane)
+    distance2 = distance_between_point_and_plane(line_points[1], plane)
+    if distance1 == distance2 
+      return distance1
+    end
+    return 0
+  
+  end  
+
   # Перпендикулярность плоскостей
   # plane1 = [A1,B1,C1,D1] - плоскость, задается массивом коэффициентов, где
   # A1 * x + B1 * y + C1 * z+ D1 = 0 - уравнение плоскости

@@ -55,12 +55,12 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     p ::Dots.distance_between_point_and_plane(point, plane)  
     # 5.0
     ```
-    - ***прямой и плоскостью***
+    - прямой и плоскостью
     ```
-    point1 = [0, 0, 0]
-    point2 = [3, 4, 0]
-    p ::Dots.distance_between_two_points(point1, point2) 
-    # 5.0
+    line = [[0,2,0],[0,0,0]]
+    plane = [1, 0, 0, -3]
+    p ::Dots.distance_between_line_and_plane(line, plane)
+    # 3.0
     ```
     - плоскостями
     ```
@@ -102,11 +102,14 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     ```
     - плоскостями
     ```
-    
+    p ::Dots.planes_ortogonal?([1,0,0, 1], [2, 1, 0, 5])
+    # false 
     ```
 1. Вычисление нормы вектора
     ```
-
+    vector = [0.1,0.2,0.2]
+    p ::Dots.norma(vector)
+    # 0.3
     ```
 
 ## Contributing
