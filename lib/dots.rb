@@ -53,7 +53,7 @@ module Dots
 
   # расстояние между точкой и плоскостью
   # point = [x,y,z] - точка, задается трехмерным массивом
-  # plane = [A,B,C,D] - плоскость, задается четырехмерным массивом, где
+  # plane = [A,B,C,D] - плоскость, задается массивом коэффициентов, где
   # A * x + B * y + C * z+ D = 0 - уравнение плоскости
   def self.distance_between_point_and_plane(point, plane)
     raise ArgumentError, "Точка должна содержать 3 координаты" unless point.size == 3 
@@ -64,9 +64,9 @@ module Dots
   end
   
   # Перпендикулярность плоскостей
-  # plane1 = [A1,B1,C1,D1] - плоскость, задается четырехмерным массивом, где
+  # plane1 = [A1,B1,C1,D1] - плоскость, задается массивом коэффициентов, где
   # A1 * x + B1 * y + C1 * z+ D1 = 0 - уравнение плоскости
-  # plane2 = [A2,B2,C2,D2] - плоскость, задается четырехмерным массивом, где
+  # plane2 = [A2,B2,C2,D2] - плоскость, задается массивом коэффициентов, где
   # A2 * x + B2 * y + C2 * z+ D2 = 0 - уравнение плоскости
   def self.planes_ortogonal?( plane1,  plane2)
     raise ArgumentError, "Плоскость должна задаваться 4 цифрами" unless plane1.size == 4 && plane2.size == 4 
@@ -98,7 +98,7 @@ module Dots
 
   # Перпенидулярность прямой и плоскости?
   # line_points = [[x1, y1, z1], [x2, y2, z2]] - две точки, задающие прямую
-  # plane = [A,B,C,D] - плоскость, задается четырехмерным массивом, где
+  # plane = [A,B,C,D] - плоскость, задается массивом коэффициентов, где
   # A * x + B * y + C * z+ D = 0 - уравнение плоскости
   def self.line_and_plane_orthogonal?(line_points, plane)
     raise ArgumentError, "Прямая должна задаваться двумя точками" unless line_points.size == 2 && line_points.all? {|p| p.size == 3}
@@ -114,7 +114,7 @@ module Dots
 
     #Параллельность прямой и плоскости?
   # line_points = [[x1, y1, z1], [x2, y2, z2]] - две точки, задающие прямую
-  # plane = [A,B,C,D] - плоскость, задается четырехмерным массивом, где
+  # plane = [A,B,C,D] - плоскость, задается массивом коэффициентов, где
   # A * x + B * y + C * z+ D = 0 - уравнение плоскости
   def self.line_and_plane_parallel?(line_points, plane)
     raise ArgumentError, "Прямая должна задаваться двумя точками" unless line_points.size == 2 && line_points.all? { |p| p.size == 3 }
