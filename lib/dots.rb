@@ -8,6 +8,7 @@ module Dots
   #расстояние между точками в пространстве
   # point = [x,y,z] - точка, задается трехмерным массивом
   def self.distance_between_two_points(point_a, point_b)
+    raise ArgumentError, "Точки должны быть трехмерными" unless point_a.size == 3 && point_a.size == 3
     Math.sqrt(
       (point_b[0] - point_a[0])**2 +
       (point_b[1] - point_a[1])**2 +
@@ -27,11 +28,13 @@ module Dots
 
   # point = [x,y,z]
   def self.direction_vector(point_a, point_b)
+    raise ArgumentError, "Точки должны быть трехмерными" unless point_a.size == 3 && point_a.size == 3
     [point_b[0] - point_a[0], point_b[1] - point_a[1], point_b[2] - point_a[2]]
   end
   
   #line1_ = [x,y,z]
   def self.lines_orthogonal?(line1_a, line1_b, line2_a, line2_b)
+    raise ArgumentError, "Точки должны быть трехмерными" unless line1_a.size == 3 && line1_b.size == 3 && line2_a.size == 3 && line2_b.size == 3
     vec1 = direction_vector(line1_a, line1_b)
     vec2 = direction_vector(line2_a, line2_b)
 

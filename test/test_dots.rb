@@ -12,6 +12,17 @@ class TestDots < Minitest::Test
   #end
 
   # Тесты для distance_between_two_points
+
+  def test_invalid_distance_between_two_points
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_two_points([],[])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_two_points([1,1],[2,3])
+    end
+  end
+
   def test_distance_2d
     # 2D случай (расстояние между (0,0,0) и (3,4,0) должно быть 5)
     assert_in_delta 5.0, 
@@ -47,6 +58,21 @@ end
   #=======================================================================================
 
   # Тесты для self.lines_orthogonal?
+
+  def test_invalid_lines_orthogonal
+    assert_raises(ArgumentError) do
+      ::Dots.lines_orthogonal?([],[],[],[] )
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.lines_orthogonal?([1,1],[2,3], [0,0,0], [0,0,0])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.lines_orthogonal?([2,3], [0,0,0], [0,0,0])
+    end
+  end
+
   def test_orthogonal_lines
     # Перпендикулярные линии вдоль осей
     assert_equal true, ::Dots.lines_orthogonal?([0,0,0], [1,0,0], [0,0,0], [0,1,0])
