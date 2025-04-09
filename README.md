@@ -69,7 +69,7 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     p ::Dots.distance_between_planes(plane1, plane2)
     # 0.0
     ```
-1. Определение параллельности между
+2. Определение параллельности между
     - прямыми
     ```
     line1 = [[0, 0, 0], [1, 1, 1]]
@@ -91,10 +91,15 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     p ::Dots.planes_parallel?(plane1, plane2)
     # false
     ```
-1. Определение перпендикулярности между
+3. Определение перпендикулярности между
     - прямыми
     ```
-    
+    line1_a = [0,0,0]
+    line1_b = [1,0,0]
+    line2_a = [0,0,0] 
+    line2_b = [0,1,0]
+    p ::Dots.lines_orthogonal?(line1_a, line1_b, line2_a, line2_b)
+    # true
     ```
     - прямой и плоскостью
     ```
@@ -105,7 +110,7 @@ gem specific_install -l https://github.com/Kitayoza/dots.git
     p ::Dots.planes_ortogonal?([1,0,0, 1], [2, 1, 0, 5])
     # false 
     ```
-1. Вычисление нормы вектора
+4. Вычисление нормы вектора
     ```
     vector = [0.1,0.2,0.2]
     p ::Dots.norma(vector)
