@@ -299,7 +299,7 @@ end
 
   # Тесты для self.line_and_plane_orthogonal?(line_points, plane)
 
-  def test_invalid
+  def test_invalid_line
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_orthogonal?([[1, 2, 3]], [1, 0, 0, 0])
     end
@@ -315,11 +315,15 @@ end
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5]], [1, 0, 0, 0])
     end
+  end
 
+  def test_invalid_plane_size
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [4, 5, 6]], [1, 0, 0])
     end
-
+  end
+  
+  def test_zero_direction_vector
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_orthogonal?([[1, 2, 3], [1, 2, 3]], [1, 0, 0, 0])
     end
@@ -337,15 +341,7 @@ end
 
   # Тесты для self.line_and_plane_parallel?(line_points, plane)
 
-  def test_parallel_lines_and_plane
-    assert_equal true, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1, -6])
-  end
-
-  def test_not_parallel_lines_and_plane
-    assert_equal false, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, -1, 1, -3])
-  end
-
-  def test_invalid
+  def test_invalid_line
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, 1, 1, -6])
     end
@@ -353,14 +349,26 @@ end
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_parallel?([[1, 2, 3]], [1, 1, 1, -6])
     end
-
+  end
+  
+  def test_invalid_plane_size
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1])
     end
-
+  end
+  
+  def test_zero_direction_vector
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, -1, 1, -3])
     end
+  end
+
+  def test_parallel_lines_and_plane
+    assert_equal true, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1, -6])
+  end
+
+  def test_not_parallel_lines_and_plane
+    assert_equal false, ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, -1, 1, -3])
   end
 
   #=======================================================================================

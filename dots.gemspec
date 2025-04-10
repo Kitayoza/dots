@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name = "dots"
   spec.version = Dots::VERSION
   spec.authors = ["Kitayoza", "Anya76", "XD26", "vomnechtotoumerlo"]
-  spec.email = ["juliapak032005@gmail.com", "ann.gladk@gmail.com"]
+  spec.email = ["juliapak032005@gmail.com", "ann.gladk@gmail.com","anasmarova@gmail.com"]
 
   spec.summary = "Гем для геометрических вычислений: расстояния, ортогональность, параллельность и норма вектора."
   spec.description = <<~DESC
