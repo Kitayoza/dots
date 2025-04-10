@@ -269,12 +269,21 @@ end
     assert_raises(ArgumentError) do
       ::Dots.distance_between_point_and_line([1, 2], [[0, 0, 0], [1, 1, 1]])
     end
+
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_line([1, 2, 3, 4], [[0, 0, 0], [1, 1, 1]])
+    end
   end
   
   def test_invalid_line_size
     assert_raises(ArgumentError) do
       ::Dots.distance_between_point_and_line([1, 2, 3], [[0, 0, 0]])
     end
+
+    assert_raises(ArgumentError) do
+      ::Dots.distance_between_point_and_line([1, 2, 3], [[0, 0, 0], [1, 1, 1], [2, 2, 2]])
+    end
+  
   end
   
   def test_zero_direction_vector
@@ -343,7 +352,15 @@ end
 
   def test_invalid_line
     assert_raises(ArgumentError) do
-      ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, 1, 1, -6])
+      ::Dots.line_and_plane_parallel?([[1, 0, 3], [1, 2, 3],[1, 0, 1]], [1, 1, 1, -6])
+    end
+    
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 0], [1, 2, 3]], [1, 1, 1, -6])
+    end
+
+    assert_raises(ArgumentError) do
+      ::Dots.line_and_plane_parallel?([[1, 0, 3], [1, 2]], [1, 1, 1, -6])
     end
 
     assert_raises(ArgumentError) do
@@ -356,7 +373,7 @@ end
       ::Dots.line_and_plane_parallel?([[1, 2, 3], [4, 5, 6]], [1, 1, 1])
     end
   end
-  
+
   def test_zero_direction_vector
     assert_raises(ArgumentError) do
       ::Dots.line_and_plane_parallel?([[1, 2, 3], [1, 2, 3]], [1, -1, 1, -3])
